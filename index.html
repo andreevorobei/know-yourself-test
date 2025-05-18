@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Познай Себя: AI-тест по самоопределению</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #e63946;
@@ -17,13 +20,22 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Unbounded', cursive;
+            font-weight: 300;
         }
         
         body {
             background-color: var(--light-color);
             color: var(--secondary-color);
             line-height: 1.6;
+        }
+        
+        h1, h2, h3, .logo {
+            font-weight: 600;
+        }
+        
+        p, li {
+            font-weight: 300;
         }
         
         .container {
@@ -49,28 +61,59 @@
         
         .logo {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 700;
             color: var(--primary-color);
+            letter-spacing: 1px;
         }
         
         .hero {
             padding: 100px 0;
             text-align: center;
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('/api/placeholder/1200/600') center/cover;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 130%;
+            background: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1600') center/cover no-repeat;
+            transform: translateZ(-1px) scale(2);
+            z-index: -1;
+            filter: brightness(0.5);
+            background-attachment: fixed;
+        }
+        
+        .hero-content {
+            background-color: rgba(29, 53, 87, 0.6);
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .hero h1 {
-            font-size: 48px;
+            font-size: 42px;
             margin-bottom: 20px;
-            color: var(--secondary-color);
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 0.5px;
+            line-height: 1.3;
         }
         
         .hero p {
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 40px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.3px;
         }
         
         .btn {
@@ -79,17 +122,37 @@
             background-color: var(--primary-color);
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             border-radius: 5px;
             transition: all 0.3s ease;
             font-size: 18px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.15);
+            transition: width 0.4s ease;
+            z-index: -1;
         }
         
         .btn:hover {
             background-color: #c1121f;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover:before {
+            width: 100%;
         }
         
         .section {
@@ -98,8 +161,22 @@
         
         .section-title {
             text-align: center;
-            font-size: 36px;
+            font-size: 38px;
             margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
         }
         
         .benefits {
@@ -239,26 +316,65 @@
         .pricing {
             background-color: var(--light-color);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1600') center/cover no-repeat;
+            filter: brightness(0.15) blur(1px);
+            z-index: -1;
         }
         
         .price-card {
             max-width: 500px;
             margin: 0 auto;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         
         .price {
             font-size: 72px;
-            font-weight: bold;
+            font-weight: 700;
             color: var(--primary-color);
             margin: 20px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .price:before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 30px;
+            background-color: rgba(230, 57, 70, 0.1);
+            bottom: 15px;
+            left: -10%;
+            z-index: -1;
+            border-radius: 3px;
         }
         
         .price span {
             font-size: 24px;
+            vertical-align: super;
+            margin-left: 5px;
+            font-weight: 500;
         }
         
         .price-features {
@@ -337,6 +453,29 @@
             text-decoration: underline;
         }
         
+        /* Animation styles */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .benefit-card, .step, .testimonial, .price-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 36px;
@@ -374,10 +513,13 @@
     </header>
     
     <section class="hero">
+        <div class="parallax-bg"></div>
         <div class="container">
-            <h1>Не знаешь, куда себя приложить на современном рынке труда?</h1>
-            <p>Наш AI-тест по самоопределению поможет тебе найти свое место в современном мире. Получи персональную аналитику своих сильных сторон и узнай, где твои навыки будут востребованы.</p>
-            <a href="https://buy.stripe.com/14A5kC9sf62W3PfcaCes003" class="btn">Пройти тест</a>
+            <div class="hero-content">
+                <h1>Не знаешь, куда себя приложить на современном рынке труда?</h1>
+                <p>Наш AI-тест по самоопределению поможет тебе найти свое место в современном мире. Получи персональную аналитику своих сильных сторон и узнай, где твои навыки будут востребованы.</p>
+                <a href="https://buy.stripe.com/14A5kC9sf62W3PfcaCes003" class="btn">Пройти тест</a>
+            </div>
         </div>
     </section>
     
@@ -466,6 +608,7 @@
     </section>
     
     <section id="pricing" class="section pricing">
+        <div class="pricing-bg"></div>
         <div class="container">
             <h2 class="section-title">Инвестируй в свое будущее</h2>
             <div class="price-card">
@@ -526,5 +669,27 @@
             </div>
         </div>
     </footer>
+    
+    <script>
+            // Parallax effect for hero section
+            window.addEventListener('scroll', function() {
+                const parallax = document.querySelector('.parallax-bg');
+                const scrollPosition = window.pageYOffset;
+                if (parallax) {
+                    parallax.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
+                }
+                
+                // Add fade-in animation for elements when they enter viewport
+                const fadeElements = document.querySelectorAll('.benefit-card, .step, .testimonial, .price-card');
+                fadeElements.forEach(elem => {
+                    const elemTop = elem.getBoundingClientRect().top;
+                    const elemBottom = elem.getBoundingClientRect().bottom;
+                    if (elemTop < window.innerHeight - 100 && elemBottom > 0) {
+                        elem.classList.add('visible');
+                    }
+                });
+            });
+
+    </script>
 </body>
 </html>
